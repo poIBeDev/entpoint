@@ -1,0 +1,478 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'news/assets/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'news/css/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'news/css/news.css' %}">
+    <link rel="stylesheet" href="{% static 'news/css/detail.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header-first-line">
+            <div class="header-first-line-logo-tg">
+                <a href="" class="header-first-line-logo-a">
+                    <img src="{% static 'news/assets/first_line/Logo_EP.svg' %}" alt="" class="header-first-line-logo" draggable="false" id="ep-logo">
+                </a>
+                <div class="header-first-line-logo-tg-vertical-line" id="header-first-line-logo-tg-vertical-line"></div>
+                <a href="" class="header-first-line-tg-a">
+                    <img src="{% static 'news/assets/first_line/Tg.svg' %}" alt="" class="header-first-line-tg" draggable="false">
+                </a>
+            </div>
+            <div class="header-first-line-change-theme-two-buttons"> <!-- смена темы и 2 кнопки -->
+                <button class="header-first-line-change-theme" id="theme-toggle">
+                    <img src="{% static 'news/assets/first_line/on-dark-theme.svg' %} " alt="" id="theme-icon">
+                </button>
+                <div class="header-first-line-two-buttons">
+                    <a href="{% url 'news_index' %}" class="header-first-line-change-section {% if current_section == 'news' %}active{% endif %}" id="header-first-line-change-section-news">
+                        <img src="{% static 'news/assets/first_line/news-icon.svg' %}" alt=""><span>Новости</span>
+                    </a>
+                    <a href="{% url 'opinions_list' %}" class="header-first-line-change-section {% if current_section == 'opinions' %}active{% endif %}" id="header-first-line-change-section-opinion">
+                        <img src="{% static 'news/assets/first_line/opinion-icon.svg' %}" alt=""><span>Мнение</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="horizontal-line" id="horizontal-line"></div>
+        <div class="courses-and-schedules">
+            <div class="courses-and-schedules-label" id="courses-and-schedules-label">
+                <span class="courses-and-schedules-label-span-one">Актуальные</span>
+                <div class="courses-and-schedules-label-span-two">
+                    <span>Курсы</span>
+                    <img src="{% static 'news/assets/courses-and-schedules/label-icon.svg' %}" alt="" id="courses-and-schedules-label-img">
+                </div>
+            </div>
+
+            <div class="courses-and-schedules-asset" id="courses-and-schedules-asset">
+                <div class="courses-and-schedules-first-line">
+                    <span class="courses-and-schedules-name">MOEX</span>
+                    <span class="courses-and-schedules-currect-time" id="moex_date">
+                        {{ moex_date|default:"-" }}
+                    </span>
+                </div>
+                <div class="courses-and-schedules-second-line">
+                    <span class="courses-and-schedules-second-line-count" id="moex_price">{{ moex_price|default:"-" }}</span>
+                    <img id="moex_change_icon" src="{% static 'news/assets/courses-and-schedules/up.svg' %}" alt="Изменение">
+                    <span class="courses-and-schedules-second-line-count-for-day" id="moex_day_change" class="{% if moex_day_change > 0 %}positive{% elif moex_day_change < 0 %}negative{% else %}neutral{% endif %}">
+                        {% if moex_day_change_prc %}
+                            {{ moex_day_change_prc }}%
+                        {% else %}
+                            -
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            
+            <div class="courses-and-schedules-asset" id="usd-rub-asset">
+                <div class="courses-and-schedules-first-line">
+                    <span class="courses-and-schedules-name">USD/RUB</span>
+                    <span class="courses-and-schedules-currect-time" id="usd_date">
+                        {{ currency_date|default:"-" }}
+                    </span>
+                </div>
+                <div class="courses-and-schedules-second-line">
+                    <span class="courses-and-schedules-second-line-count" id="usd_rate">{{ usd_rate|default:"-" }}</span>
+                    <img class="courses-and-schedules-asset-icons" src="{% static 'news/assets/courses-and-schedules/dollar_icon.svg' %}" alt="">
+                </div>
+            </div>
+            
+
+            <div class="courses-and-schedules-asset" id="eur-rub-asset">
+                <div class="courses-and-schedules-first-line">
+                    <span class="courses-and-schedules-name">EUR/RUB</span>
+                    <span class="courses-and-schedules-currect-time" id="eur_date">
+                        {{ currency_date|default:"-" }}
+                    </span>
+                </div>
+                <div class="courses-and-schedules-second-line">
+                    <span class="courses-and-schedules-second-line-count" id="eur_rate">{{ eur_rate|default:"-" }}</span>
+                    <img class="courses-and-schedules-asset-icons" src="{% static 'news/assets/courses-and-schedules/euro_icon.svg' %}" alt="">
+                </div>
+            </div>
+            
+
+            <div class="courses-and-schedules-asset" id="cny-rub-asset">
+                <div class="courses-and-schedules-first-line">
+                    <span class="courses-and-schedules-name">CNY/RUB</span>
+                    <span class="courses-and-schedules-currect-time" id="cny_date">
+                        {{ currency_date|default:"-" }}
+                    </span>
+                </div>
+                <div class="courses-and-schedules-second-line">
+                    <span class="courses-and-schedules-second-line-count" id="cny_rate">{{ cny_rate|default:"-" }}</span>
+                    <img class="courses-and-schedules-asset-icons" src="{% static 'news/assets/courses-and-schedules/cny_icon.svg' %}" alt="">
+                </div>
+            </div>
+            
+
+            <div class="courses-and-schedules-asset" id="brent-asset">
+                <div class="courses-and-schedules-first-line">
+                    <span class="courses-and-schedules-name">Brent</span>
+                    <span class="courses-and-schedules-currect-time" id="oil_date">
+                        {{ oil_date|default:"-" }}
+                    </span>
+                </div>
+                <div class="courses-and-schedules-second-line">
+                    <span class="courses-and-schedules-second-line-count" id="oil_price">{{ oil_price|floatformat:3|default:"-" }}</span>
+                    <img id="oil_change_icon" src="{% static 'news/assets/courses-and-schedules/up.svg' %}" alt="Изменение">
+                    <span class="courses-and-schedules-second-line-count-for-day" id="oil_day_change" class="{% if oil_day_change > 0 %}positive{% elif oil_day_change < 0 %}negative{% else %}neutral{% endif %}">
+                        {% if oil_day_change_prc %}
+                            {{ oil_day_change_prc }}%
+                        {% else %}
+                            -
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="courses-and-schedules-asset" id="rtsi-asset"> 
+                <div class="courses-and-schedules-first-line">
+                    <span class="courses-and-schedules-name">RTSI</span>
+                    <span class="courses-and-schedules-currect-time" id="rtsi_date">
+                        {{ rtsi_date|default:"-" }}
+                    </span>
+                </div>
+                <div class="courses-and-schedules-second-line">
+                    <span class="courses-and-schedules-second-line-count" id="rtsi_price">{{ rtsi_price|default:"-" }}</span>
+                    <img id="rtsi_change_icon" src="{% static 'news/assets/courses-and-schedules/up.svg' %}" alt="Изменение">
+                    <span class="courses-and-schedules-second-line-count-for-day" id="rtsi_day_change" class="{% if rtsi_day_change > 0 %}positive{% elif rtsi_day_change < 0 %}negative{% else %}neutral{% endif %}">
+                        {% if rtsi_day_change_prc %}
+                            {{ rtsi_day_change_prc }}%
+                        {% else %}
+                            -
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            
+
+            <div class="courses-and-schedules-asset" id="sp500-asset">
+                <div class="courses-and-schedules-first-line">
+                    <span class="courses-and-schedules-name">S&P 500</span>
+                    <span class="courses-and-schedules-currect-time" id="sp500_date">
+                        {{ sp500_date|default:"-" }}
+                    </span>
+                </div>
+                <div class="courses-and-schedules-second-line">
+                    <span class="courses-and-schedules-second-line-count" id="sp500_price">{{ sp500_price|default:"-" }}</span>
+                    <img id="sp500_change_icon" src="{% static 'news/assets/courses-and-schedules/up.svg' %}" alt="Изменение">
+                    <span class="courses-and-schedules-second-line-count-for-day" id="sp500_day_change" class="{% if sp500_day_change > 0 %}positive{% elif sp500_day_change < 0 %}negative{% else %}neutral{% endif %}">
+                        {% if sp500_day_change_prc %}
+                            {{ sp500_day_change_prc }}%
+                        {% else %}
+                            -
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            
+
+        </div>
+
+        <div class="banner">
+            <div class="banner-text">
+                <h2>У нас есть канал в Telegram</h2>
+                <p>Оставайтесь информированными: наш Telegram-канал предлагает краткие новости и экспертную аналитику рынка.</p>
+            </div>
+            <img class="banner-img" src="{% static 'news/assets/first_line/Logo_EP_dt.svg' %}" alt="">
+        </div>
+    </header>
+    <main>
+        <div class="content-ads">
+            {% block content %}
+            {% endblock %}
+            <div class="ads">
+                <p>Реклама</p>
+                <p>Реклама</p>
+                <p>Реклама</p>
+                <p>Реклама</p>
+                <p>Реклама</p>
+                <p>Реклама</p>
+                <p>Реклама</p>
+                <p>Реклама</p>
+                <p>Реклама</p>
+                <p>Реклама</p>
+            </div>
+        </div>
+        {% block pagination %}
+        {% endblock %}
+    </main>
+    <footer>
+        <div class="footer-logo" id="footer-logo">
+            <img src="{% static 'news/assets/first_line/Logo_EP.svg' %}" alt="" id="ep-logo-footer">
+            <span>© Entrypoint 2024</span>
+        </div>
+        <div class="footer-sections-contacts">
+            <div class="footer-vertical-line"></div>
+            <div class="footer-section">
+                <h3 class="footer-section-h3">Разделы</h3>
+                <a href=""><span>Новости</span></a>
+                <a href=""><span>Мнение</span></a>
+            </div>
+            <div class="footer-vertical-line"></div>
+            <div class="footer-section">
+                <h3 class="footer-section-h3">Разделы</h3>
+                <a href="{% url 'news_index' %}"><span>Новости</span></a>
+                <a href="{% url 'opinions_list' %}"><span>Мнение</span></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    let theme = localStorage.getItem('theme') || 'light';
+    const body = document.body;
+    const epLogo = document.getElementById('ep-logo');
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const hfllgvl = document.getElementById('header-first-line-logo-tg-vertical-line');
+    const horizontalLine = document.getElementById('horizontal-line');
+    const hflcsn = document.getElementById('header-first-line-change-section-news');
+    const hflcso = document.getElementById('header-first-line-change-section-opinion');
+    const coursesAndSchedulesLabel = document.getElementById('courses-and-schedules-label');
+    const coursesAndSchedulesLabelImg = document.getElementById('courses-and-schedules-label-img');
+    
+    const coursesAndSchedulesAsset = document.getElementById('courses-and-schedules-asset');
+    const usdRubAsset = document.getElementById('usd-rub-asset');
+    const eurRubAsset = document.getElementById('eur-rub-asset');
+    const cnyRubAsset = document.getElementById('cny-rub-asset');
+    const brentAsset = document.getElementById('brent-asset');
+    const rtsiAsset = document.getElementById('rtsi-asset');
+    const sp500Asset = document.getElementById('sp500-asset');
+
+    const newsDetail = document.getElementById('news-detail');
+    const newsBlocks = document.getElementsByClassName('news-block');
+
+    const footerVerticalLine = document.getElementsByClassName('footer-vertical-line');
+    const footerSectionH3 = document.getElementsByClassName('footer-section-h3');
+
+    const errorPage = document.getElementsByClassName('error-page');
+
+    const footerLogoDiv = document.getElementById('footer-logo');
+    const epLogoFooter = document.getElementById('ep-logo-footer');
+
+    function setTheme(themeName) {
+        if (themeName === 'dark') {
+            body.classList.add('dark-theme-body');
+            
+            if (hfllgvl) hfllgvl.classList.add('dark-theme-first-line-logo-tg-vertical-line');
+            if (horizontalLine) horizontalLine.classList.add('dark-theme-horizontal-line');
+            if (hflcsn) hflcsn.classList.add('dark-theme-header-first-line-change-section');
+            if (hflcso) hflcso.classList.add('dark-theme-header-first-line-change-section');
+            if (coursesAndSchedulesLabel) coursesAndSchedulesLabel.classList.add('dark-theme-courses-and-schedules-label');
+
+            if (coursesAndSchedulesAsset) coursesAndSchedulesAsset.classList.add('dark-theme-courses-and-schedules-asset');
+            if (usdRubAsset) usdRubAsset.classList.add('dark-theme-courses-and-schedules-asset');
+            if (eurRubAsset) eurRubAsset.classList.add('dark-theme-courses-and-schedules-asset');
+            if (cnyRubAsset) cnyRubAsset.classList.add('dark-theme-courses-and-schedules-asset');
+            if (brentAsset) brentAsset.classList.add('dark-theme-courses-and-schedules-asset');
+            if (rtsiAsset) rtsiAsset.classList.add('dark-theme-courses-and-schedules-asset');
+            if (sp500Asset) sp500Asset.classList.add('dark-theme-courses-and-schedules-asset');
+
+            // Добавляем класс ко всем новостным блокам
+            for (let i = 0; i < newsBlocks.length; i++) {
+                newsBlocks[i].classList.add('dark-theme-news-block');
+            }
+
+            // Добавляем классы к элементам футера
+            for (let i = 0; i < footerVerticalLine.length; i++) {
+                footerVerticalLine[i].classList.add('dark-theme-footer-vertical-line');
+            }
+
+            for (let i = 0; i < footerSectionH3.length; i++) {
+                footerSectionH3[i].classList.add('dark-theme-footer-section-h3');
+            }
+
+            if (newsDetail) {
+                newsDetail.classList.add('dark-theme-news-detail');
+            }
+
+            if (footerLogoDiv) {
+                footerLogoDiv.classList.add('dark-theme-footer');
+            }
+
+            for (let i = 0; i < errorPage.length; i++) {
+                errorPage[i].classList.add('dark-theme-error-page');
+            }
+
+            // Меняем изображения
+            if (themeIcon) {
+                themeIcon.src = '{% static "news/assets/first_line/on-light-theme.svg" %}';
+            }
+            if (epLogo) {
+                epLogo.src = '{% static "news/assets/first_line/Logo_EP_dt.svg" %}';
+            }
+            if (coursesAndSchedulesLabelImg) {
+                coursesAndSchedulesLabelImg.src = '{% static "news/assets/courses-and-schedules/label-icon-dark.svg" %}';
+            }
+            if (epLogoFooter) {
+                epLogoFooter.src = '{% static "news/assets/first_line/Logo_EP_dt.svg" %}';
+            }
+
+        } else {
+            body.classList.remove('dark-theme-body');
+            
+            if (hfllgvl) hfllgvl.classList.remove('dark-theme-first-line-logo-tg-vertical-line');
+            if (horizontalLine) horizontalLine.classList.remove('dark-theme-horizontal-line');
+            if (hflcsn) hflcsn.classList.remove('dark-theme-header-first-line-change-section');
+            if (hflcso) hflcso.classList.remove('dark-theme-header-first-line-change-section');
+            if (coursesAndSchedulesLabel) coursesAndSchedulesLabel.classList.remove('dark-theme-courses-and-schedules-label');
+
+            if (coursesAndSchedulesAsset) coursesAndSchedulesAsset.classList.remove('dark-theme-courses-and-schedules-asset');
+            if (usdRubAsset) usdRubAsset.classList.remove('dark-theme-courses-and-schedules-asset');
+            if (eurRubAsset) eurRubAsset.classList.remove('dark-theme-courses-and-schedules-asset');
+            if (cnyRubAsset) cnyRubAsset.classList.remove('dark-theme-courses-and-schedules-asset');
+            if (brentAsset) brentAsset.classList.remove('dark-theme-courses-and-schedules-asset');
+            if (rtsiAsset) rtsiAsset.classList.remove('dark-theme-courses-and-schedules-asset');
+            if (sp500Asset) sp500Asset.classList.remove('dark-theme-courses-and-schedules-asset');
+
+            // Удаляем классы у всех новостных блоков
+            for (let i = 0; i < newsBlocks.length; i++) {
+                newsBlocks[i].classList.remove('dark-theme-news-block');
+            }
+
+            // Удаляем классы у элементов футера
+            for (let i = 0; i < footerVerticalLine.length; i++) {
+                footerVerticalLine[i].classList.remove('dark-theme-footer-vertical-line');
+            }
+
+            for (let i = 0; i < footerSectionH3.length; i++) {
+                footerSectionH3[i].classList.remove('dark-theme-footer-section-h3');
+            }
+
+            if (newsDetail) {
+                newsDetail.classList.remove('dark-theme-news-detail');
+            }
+
+            if (footerLogoDiv) {
+                footerLogoDiv.classList.remove('dark-theme-footer');
+            }
+
+            for (let i = 0; i < errorPage.length; i++) {
+                errorPage[i].classList.remove('dark-theme-error-page');
+            }
+
+            // Меняем изображения
+            if (themeIcon) {
+                themeIcon.src = '{% static "news/assets/first_line/on-dark-theme.svg" %}';
+            }
+            if (epLogo) {
+                epLogo.src = '{% static "news/assets/first_line/Logo_EP.svg" %}';
+            }
+            if (coursesAndSchedulesLabelImg) {
+                coursesAndSchedulesLabelImg.src = '{% static "news/assets/courses-and-schedules/label-icon.svg" %}';
+            }
+            if (epLogoFooter) {
+                epLogoFooter.src = '{% static "news/assets/first_line/Logo_EP.svg" %}';
+            }
+        }
+        localStorage.setItem('theme', themeName);
+    }
+
+    setTheme(theme);
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function() {
+            theme = (theme === 'light') ? 'dark' : 'light';
+            setTheme(theme);
+        });
+    }
+
+        function updateData() {
+        var updateDataUrl = "{% url 'update_data' %}";
+        var upIconUrl = "{% static 'news/assets/courses-and-schedules/up.svg' %}";
+        var downIconUrl = "{% static 'news/assets/courses-and-schedules/down.svg' %}";
+        var neutralIconUrl = "{% static 'news/assets/courses-and-schedules/nl.svg' %}";
+            
+            console.log('Начало обновления данных'); // Отладочное сообщение
+            $.ajax({
+                url: updateDataUrl,  // Используем переменную, заданную в шаблоне
+                type: 'GET',
+                success: function(data) {
+                    console.log('Получены данные:', data); // Отладочное сообщение
+                
+                    // MOEX
+                    $('#moex_price').text(data.moex_price || '-');
+                    $('#moex_date').text(data.moex_date || '-');
+                    if (data.moex_day_change > 0) {
+                        $('#moex_change_icon').attr('src', upIconUrl);
+                        $('#moex_day_change').text('+' + data.moex_day_change_prc + '%').removeClass().addClass('positive');
+                    } else if (data.moex_day_change < 0) {
+                        $('#moex_change_icon').attr('src', downIconUrl);
+                        $('#moex_day_change').text(data.moex_day_change_prc + '%').removeClass().addClass('negative');
+                    } else {
+                        $('#moex_change_icon').attr('src', neutralIconUrl);
+                        $('#moex_day_change').text('0%').removeClass().addClass('neutral');
+                    }
+                
+                    // Brent
+                    $('#oil_price').text(data.oil_price || '-');
+                    $('#oil_date').text(data.oil_date || '-');
+                    if (data.oil_day_change > 0) {
+                        $('#oil_change_icon').attr('src', upIconUrl);
+                        $('#oil_day_change').text('+' + data.oil_day_change_prc + '%').removeClass().addClass('positive');
+                    } else if (data.oil_day_change < 0) {
+                        $('#oil_change_icon').attr('src', downIconUrl);
+                        $('#oil_day_change').text(data.oil_day_change_prc + '%').removeClass().addClass('negative');
+                    } else {
+                        $('#oil_change_icon').attr('src', neutralIconUrl);
+                        $('#oil_day_change').text('0%').removeClass().addClass('neutral');
+                    }
+                
+                    // RTSI
+                    $('#rtsi_price').text(data.rtsi_price || '-');
+                    $('#rtsi_date').text(data.rtsi_date || '-');
+                    if (data.rtsi_day_change > 0) {
+                        $('#rtsi_change_icon').attr('src', upIconUrl);
+                        $('#rtsi_day_change').text('+' + data.rtsi_day_change_prc + '%').removeClass().addClass('positive');
+                    } else if (data.rtsi_day_change < 0) {
+                        $('#rtsi_change_icon').attr('src', downIconUrl);
+                        $('#rtsi_day_change').text(data.rtsi_day_change_prc + '%').removeClass().addClass('negative');
+                    } else {
+                        $('#rtsi_change_icon').attr('src', neutralIconUrl);
+                        $('#rtsi_day_change').text('0%').removeClass().addClass('neutral');
+                    }
+                
+                    // S&P 500
+                    $('#sp500_price').text(data.sp500_price || '-');
+                    $('#sp500_date').text(data.sp500_date || '-');
+                    if (data.sp500_day_change > 0) {
+                        $('#sp500_change_icon').attr('src', upIconUrl);
+                        $('#sp500_day_change').text('+' + data.sp500_day_change_prc + '%').removeClass().addClass('positive');
+                    } else if (data.sp500_day_change < 0) {
+                        $('#sp500_change_icon').attr('src', downIconUrl);
+                        $('#sp500_day_change').text(data.sp500_day_change_prc + '%').removeClass().addClass('negative');
+                    } else {
+                        $('#sp500_change_icon').attr('src', neutralIconUrl);
+                        $('#sp500_day_change').text('0%').removeClass().addClass('neutral');
+                    }
+                
+                    // Валюты
+                    // USD/RUB
+                    $('#usd_rate').text(data.usd_rate || '-');
+                    $('#usd_date').text(data.currency_date || '-');
+                
+                    // EUR/RUB
+                    $('#eur_rate').text(data.eur_rate || '-');
+                
+                    // CNY/RUB
+                    $('#cny_rate').text(data.cny_rate || '-');
+                },
+                error: function(error) {
+                    console.error('Ошибка обновления данных:', error);
+                }
+            });
+        }
+
+        // Обновляем данные каждые 30 секунд
+        setInterval(updateData, 30000);
+
+        // Первоначальный вызов для мгновенного обновления при загрузке страницы
+        updateData();
+    </script>
+</body>
+</html>

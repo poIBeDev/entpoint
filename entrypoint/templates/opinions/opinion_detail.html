@@ -1,0 +1,22 @@
+{% extends 'news/layout.html' %}
+{% load static %}
+{% load news_extras %}
+
+{% block title %}{{ opinion_item.title }}{% endblock %}
+
+{% block content %}
+    <div class="news-detail" id="news-detail">
+        <h1>{{ opinion_item.title }}</h1>
+        <!-- Отображение изображения, если оно есть -->
+        {% if opinion_item.img %}
+            <img src="{{ opinion_item.img.url }}" alt="">
+        {% endif %}
+        <!-- Отображение текста без первого предложения -->
+        <p>{{ opinion_item.text|remove_first_sentence }}</p>
+
+        <!-- Дата публикации -->
+        <div class="publication-time">
+            {{ opinion_item.timestamp|timesince }} назад
+        </div>
+    </div>
+{% endblock %}

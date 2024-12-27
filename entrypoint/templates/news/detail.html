@@ -1,0 +1,32 @@
+{% extends 'news/layout.html' %}
+{% load static %}
+{% load news_extras %}
+
+{% block title %}{{ news_item.title }}{% endblock %}
+
+{% block content %}
+    <div class="news-detail" id="news-detail">
+        <h1>{{ news_item.title }}</h1>
+        <!-- Отображение изображения, если оно есть -->
+        {% if news_item.get_image_url %}
+            <img src="{{ news_item.get_image_url }}" alt="">
+        {% endif %}
+        <!-- Отображение текста без первого предложения -->
+        <div class="news-text">
+            {{ news_item.text|remove_first_sentence|auto_paragraphs_razdel }}
+        </div>
+
+        <div class="tickers-publication-time">
+            <div class="tickers">
+                {% for ticker in news_item.tickers %}
+                    <div class="ticker">{{ ticker }}</div>
+                {% endfor %}
+            </div>
+            <!-- Дата публикации -->
+            <div class="publication-time">
+                {{ news_item.timestamp|timesince }} назад
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

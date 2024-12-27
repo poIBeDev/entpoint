@@ -1,0 +1,56 @@
+{% extends 'news/layout.html' %}
+{% load static %}
+{% load news_extras %}
+
+{% block title %}Мнения{% endblock %}
+
+{% block content %}
+    <div class="news-list">
+        {% for opinion_item in page_obj %}
+        <a href="{% url 'opinion_detail' slug=opinion_item.slug %}">
+            <div class="news-block">
+                <div class="news-block-content">
+                    <h2>
+                        {% if opinion_item.is_recent %}
+                        <img src="{% static 'news/assets/news_preview/lightning.svg' %}" alt="Свежая статья" class="lightning-icon">
+                        {% endif %}
+                        {{ opinion_item.title|truncatechars:103 }}
+                    </h2>
+                    <p>{{ opinion_item.text|sentences_range:"2,3" }}</p>
+                </div>
+                <div class="news-block-footer">
+                    <!-- Дата публикации -->
+                    <div class="publication-time">
+                        {{ opinion_item.timestamp|timesince }} назад
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+            <p>Нет мнений для отображения.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block pagination %}
+    <!-- Пагинация -->
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <span class="current">{{ num }}</span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

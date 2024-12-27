@@ -1,0 +1,21 @@
+.news-detail {
+    width: 78%;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 2%;
+    font-size: 1.2em;
+}
+
+.news-detail.dark-theme-news-detail
+{
+    background-color: #2b2b2b;
+    color: #ffffff;
+}
+
+.tickers-publication-time
+{
+    display: flex;
+}

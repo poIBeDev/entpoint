@@ -1,0 +1,61 @@
+{% extends 'news/layout.html' %}
+{% load static %}
+{% load news_extras %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+    <div class="news-list">
+        {% for news_item in page_obj %}
+        <a href="{% url 'news_detail' slug=news_item.slug %}">
+            <div class="news-block">
+                <div class="news-block-content">
+                    <h2>
+                        {% if news_item.is_recent %}
+                        <img src="{% static 'news\assets\news_preview\lightning.svg' %}" alt="Свежая новость" class="lightning-icon">
+                        {% endif %}
+                        {{ news_item.title|truncatechars:103 }}
+                    </h2>
+                    <p>{{ news_item.text|sentences_range:"2,3" }}</p>
+                </div>
+                <div class="news-block-footer">
+                    <!-- Выводим тикеры -->
+                    <div class="tickers">
+                        {% for ticker in news_item.tickers %}
+                            <div class="ticker">{{ ticker }}</div>
+                        {% endfor %}
+                    </div>
+                    <!-- Дата публикации -->
+                    <div class="publication-time">
+                        {{ news_item.timestamp|timesince }} назад
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+            <p>Нет новостей для отображения.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block pagination %}
+    <!-- Пагинация -->
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <span class="current">{{ num }}</span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

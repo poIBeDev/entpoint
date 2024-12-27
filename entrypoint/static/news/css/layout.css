@@ -1,0 +1,600 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('/static/news/fonts/Inter-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body
+{
+    margin: 0;
+    padding: 0;
+    width: 99vw;
+    height: 100vh;
+    background: #F7F7F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+body.dark-theme-body {
+    background: #212121;
+}
+
+header
+{
+    width: 96vw;
+    height: 37vh;
+    min-height: 356px;
+}
+
+.header-first-line
+{
+    width: 100%;
+    height: 21.25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-first-line-logo-tg
+{
+    width: 9%;
+    height: 58%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 150px; /* Максимальная ширина */
+    min-width: 100px;  /* Минимальная ширина */
+    max-height: 100px; /* Максимальная высота */
+    min-height: 60px;  /* Минимальная высота */
+}
+
+.header-first-line-logo-a
+{
+    width: 45%;
+    height: 70%; 
+    background: none;
+}
+
+.header-first-line-tg-a
+{
+    width: 30%;
+    height: 60%;
+    background: none;
+    display: flex;
+    align-items: center;
+}
+
+.header-first-line-logo
+{
+    width: 100%;
+    height: 100%; 
+    background: none;
+    margin-top: 2%;
+    background: none;
+}
+
+.header-first-line-tg
+{
+    width: 80%;
+    height: 80%;
+    background: none;
+}
+
+.header-first-line-logo-tg-vertical-line
+{
+    width: 2px; /* Толщина полоски */
+    height: 80%; /* Высота полоски */
+    background-color: #CECECE; /* Цвет полоски */  
+}
+
+.header-first-line-logo-tg-vertical-line.dark-theme-first-line-logo-tg-vertical-line
+{
+    background-color: #282828; /* Цвет полоски */  
+}
+
+.header-first-line-change-theme-two-buttons
+{
+    width: 17.5%;
+    height: 58%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 390px;
+    min-width: 380px;
+}
+
+.header-first-line-change-theme
+{
+    background: none; /* Убираем фон */
+    border: none; /* Убираем рамку */
+    padding: 0; /* Убираем отступы */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-first-line-change-theme img
+{
+    height: 35px;
+}
+
+.header-first-line-two-buttons
+{
+    height: 100%;
+    width: 90%;
+    display: flex;
+    gap: 3%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header-first-line-two-buttons a
+{
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.header-first-line-change-section
+{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: 2px solid #ccc; /* Светло-серая рамка */
+    border-radius: 6px; /* Закругленные углы */
+    background-color: #f5f5f5; /* Светло-серый фон */
+    color: #666;
+    cursor: pointer; /* Курсор в виде указателя */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы для эффекта наведения */
+    outline: none;
+    max-width: 160px;
+    min-width: 115px;
+    max-height: 50px; /* Максимальная высота */
+    min-height: 45px;  /* Минимальная высота */
+}
+
+.header-first-line-change-section.dark-theme-header-first-line-change-section
+{
+    border: 2px solid #282828; /* Светло-серая рамка */
+    background-color: #2B2B2B; /* Светло-серый фон */
+    color: #FFFFFF;
+}
+
+
+.header-first-line-change-section:hover
+{
+    background-color: #2b2b2b; /* Изменение цвета фона при наведении */
+    color: #ffffff;
+    border: 2px solid #2b2b2b; /* Светло-серая рамка */
+}
+
+.header-first-line-change-section.dark-theme-header-first-line-change-section:hover
+{
+    border: 2px solid #282828; /* Светло-серая рамка */
+    background-color: #f5f5f5; /* Светло-серый фон */
+    color: #666;
+}
+
+.opinion-button:active {
+    background-color: #2b2b2b; /* Изменение цвета фона при нажатии */
+    color: #ffffff;
+    border: 2px solid #2b2b2b; /* Светло-серая рамка */
+}
+
+.header-first-line-change-section img
+{
+    margin-right: 8px; /* Отступ справа от иконки */
+}
+
+.horizontal-line
+{
+    width: 100%; /* Толщина полоски */
+    height: 2px; /* Высота полоски */
+    background-color: #CECECE; /* Цвет полоски */ 
+}
+
+.horizontal-line.dark-theme-horizontal-line
+{
+    background-color: #282828; /* Цвет полоски */ 
+}
+
+.courses-and-schedules
+{
+    width: 100%;
+    height: 22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.courses-and-schedules-label
+{
+    height: 60%;
+    width: 11%;
+    background: #ffffff;
+    border-radius: 5px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 190px;
+    min-width: 130px;
+}
+
+.courses-and-schedules-label.dark-theme-courses-and-schedules-label
+{
+    background: #282828;
+    color: #FFFFFF;
+}
+
+.courses-and-schedules-label-span-one
+{
+    font-size: 0.6em;
+    font-weight: 300;
+}
+
+.courses-and-schedules-label-span-two
+{
+    display: flex;
+    gap: 5px;
+}
+
+.courses-and-schedules-label-span-two span
+{
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.courses-and-schedules-asset
+{
+    height: 60%;
+    width: 11%;
+    background: #ffffff;
+    border-radius: 5px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 210px;
+    min-width: 140px; 
+}
+
+.courses-and-schedules-asset.dark-theme-courses-and-schedules-asset
+{
+    background: #282828;
+    color: #FFFFFF;
+}
+
+.courses-and-schedules-first-line
+{
+    display: flex;
+    gap: 5px;
+    font-size: 0.6em;
+    font-weight: 300;
+}
+
+.courses-and-schedules-currect-time
+{
+    color: #666;
+}
+
+.courses-and-schedules-second-line
+{
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.courses-and-schedules-second-line-count
+{
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.courses-and-schedules-second-line-count-for-day
+{
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.courses-and-schedules-asset-icons
+{
+    margin-top: 2px;
+    width: 16px;
+    height: 19px;
+}
+
+.positive
+{
+    color: #58FF87;
+}
+
+.negative
+{
+    color: #FF5858;
+}
+
+.neutral
+{
+    color: gray; 
+}
+
+.banner
+{
+    width: 100%;
+    height: 45%;
+    display: flex;
+    background: #282828;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner-text
+{
+    display: flex;
+    color: white;
+    margin-left: 30px;
+    flex-direction: column;
+    font-size: 1.2em;
+}
+
+.banner-text h2
+{
+    margin: 19px;
+    margin-left: 0px;
+}
+
+
+.banner-img
+{
+    border-radius: 50%; 
+    height: 120px;
+    width: 120px;
+    background-color: #212121;
+    margin-right: 2%;
+    border: #F7F7F7 solid 2px;
+}
+
+main
+{
+    width: 96vw;
+}
+
+.content-ads
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ads
+{
+    width: 17%;
+    background: #c5c5c5;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+footer
+{
+    margin-top: 2%;
+    width: 96vw;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.footer-logo.dark-theme-footer
+{
+    color: #FFFFFF;
+}
+
+.footer-logo
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.footer-logo span
+{
+    font-size: 0.8em;
+}
+
+
+.footer-logo img
+{
+    width: 40%;
+    height: 40%;
+}
+
+.footer-sections-contacts
+{
+    display: flex;
+    width: 15%;
+    gap: 5%;
+    justify-content: space-evenly;
+}
+
+.footer-vertical-line
+{
+    width: 2px; /* Толщина полоски */
+    height: 100%; /* Высота полоски */
+    background-color: #CECECE; /* Цвет полоски */  
+}
+
+.footer-vertical-line.dark-theme-footer-vertical-line
+{
+    background-color: #282828; /* Цвет полоски */  
+}
+
+.footer-section
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.footer-section-h3
+{
+    margin: 0px;
+    font-size: 1em;
+}
+
+.footer-section-h3.dark-theme-footer-section-h3
+{
+    color: #FFFFFF;
+}
+
+.footer-section a
+{
+    text-decoration: none;
+    color: #666;
+    font-size: 0.8em;
+}
+
+.error-page
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.error-page.dark-theme-error-page
+{
+    color: #FFFFFF;
+}
+
+@media (max-width: 900px) {
+    .header-first-line-logo-tg
+    {
+        justify-content: flex-start; 
+    }
+
+    .header-first-line-tg-a {
+        display: none;
+    }
+
+    .header-first-line-logo-tg-vertical-line
+    {
+        display: none;
+    }
+
+    .header-first-line-change-theme-two-buttons
+    {
+        max-width: 200px;
+        min-width: 150px;
+    }
+
+    .header-first-line-change-section
+    {
+        max-width: 50px;
+        min-width: 40px;
+    }
+
+    .header-first-line-change-section span
+    {
+        display: none;
+    }
+
+    .header-first-line-change-section img
+    {
+        margin-right: 0px; /* Отступ справа от иконки */
+    }
+
+    .courses-and-schedules-label
+    {
+        padding-left: 7px;
+        max-width: 190px;
+        min-width: 125px;
+    }
+
+    .courses-and-schedules-asset
+    {
+        padding-left: 7px;
+        max-width: 190px;
+        min-width: 140px;  
+    }
+}
+
+@media (max-width: 1350px) {
+    #sp500-asset
+    {
+        display: none;
+    }
+    
+    .banner-img
+    {
+        display: none;
+    }
+}
+
+@media (max-width: 1150px) {
+    #rtsi-asset
+    {
+        display: none;
+    }
+}
+
+@media (max-width: 980px) {
+    #rtsi-asset
+    {
+        display: none;
+    }
+}
+
+@media (max-width: 980px) {
+    #brent-asset
+    {
+        display: none;
+    }
+}
+
+@media (max-width: 760px) {
+    #cny-rub-asset
+    {
+        display: none;
+    }
+
+    .banner-text
+    {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 600px) {
+    #eur-rub-asset
+    {
+        display: none;
+    }
+
+    .banner-text
+    {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 450px) {
+    #usd-rub-asset
+    {
+        display: none;
+    }
+
+    .banner-text
+    {
+        font-size: 0.7em;
+    }
+}

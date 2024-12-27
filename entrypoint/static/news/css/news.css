@@ -1,0 +1,119 @@
+.news-list {
+    width: 82%;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-list a {
+    text-decoration: none;
+    color: black;
+    width: 100%;
+}
+
+.news-block {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 2%;
+    background: #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.news-block.dark-theme-news-block
+{
+    background-color: #2b2b2b;
+    color: #ffffff;
+}
+
+.news-block:hover {
+    background-color: #2b2b2b;
+    color: #ffffff;
+}
+
+.news-block.dark-theme-news-block:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.news-block h2 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.lightning-icon {
+    width: 24px;
+    height: auto;
+    vertical-align: middle;
+}
+
+.news-block p {
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.news-block-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tickers {
+    display: flex;
+    gap: 5px;
+    margin-top: auto;
+}
+
+.ticker {
+    background: linear-gradient(135deg, #21BA72, #42E3B4);
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    color: #ffffff;
+    display: inline-block;
+}
+
+.ticker:hover {
+    background: linear-gradient(135deg, #FF5858, #ff7e5f);
+}
+
+.publication-time {
+    margin-left: auto;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    color: #333;
+    display: inline-block;
+}
+
+
+/* Стили пагинации остаются без изменений */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.page-links a, .page-links span {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 12px;
+    color: #666;
+    text-decoration: none;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.page-links a:hover {
+    background-color: #ccc;
+    color: #fff;
+}
+
+.page-links .current {
+    background-color: #ccc;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid #ccc;
+}
